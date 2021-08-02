@@ -9,13 +9,16 @@ const port = 5000;
 //model 가져옴
 const {User} = require('./models/User');
 
+//config값 가져옴
+const config = require('./config/key');
+
 //body parser 옵션주기
 ///application/x-www-form-urlencoded 데이터를 분석해서 가지고 올 수 있게함 
 app.use(bodyParser.urlencoded({extends: true}));
 ///application/json 형식 데이터 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://jcs:jcs@makeyoutube.0uoyl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{
+mongoose.connect(config.mongoURI,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

@@ -64,3 +64,9 @@
     - package.json 에 추가 
       - "backend": "nodemon index.js",
 
+## 비밀정보 관리(github)
+### mongoDB 계정 
+    - config 폴더 > dev.js, prod.js, key.js 파일 생성 
+    - module.exports={mongoURI:""} 
+    - 배포용(헤로쿠 등), 개발용 분기를 둬야 한다
+
