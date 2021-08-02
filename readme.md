@@ -29,7 +29,7 @@
 
     2. start the ssh-agent in the background
         eval "$(ssh-agent -s)"
-    '''BASH
+    '''bash
     git remote add origin https://github.com/JungLaark/react-mongodb-boilerplate.git
     git branch -M main
     git push -u origin main
