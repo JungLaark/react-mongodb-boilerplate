@@ -1,4 +1,4 @@
-# 구성 
+# node.js 구성 
 
 ## 프로젝트 초기화
     1. npm init
@@ -69,4 +69,58 @@
     - config 폴더 > dev.js, prod.js, key.js 파일 생성 
     - module.exports={mongoURI:""} 
     - 배포용(헤로쿠 등), 개발용 분기를 둬야 한다
+    - dev.js 처럼 민감 정보가 있는 파일은 .gitignore에 추가해서 push가 안되도록 해야 한다
 
+## 비밀번호 암호화 
+### bcrypt 
+    - npm install bcrypt --save
+    - https://www.npmjs.com/package/bcrypt
+    - model 에서 정의 
+
+## 비밀번호 일치할 때 TOKEN 생성 
+### JSONWEBTOKEN 사용
+#### npm install jsonwebtoken --save 
+    - https://www.npmjs.com/package/jsonwebtoken
+#### 쿠키에 저장 
+    - npm install cookie-parser --save
+
+## Auth 기능 만들기 
+### 여러가지 페이지를 이동할 때 로그인 권한 부여하기 위함 (보통 session으로 관리했던 기억이)
+    - auth 라는 route 추가 
+    - middleware 추가 
+
+## 로그아웃 기능 
+### DB에 token을 지워준다 
+
+
+
+# React JS 
+## 이거슨 라이브러리다
+## real DOM virtual DOM
+### 동작방식 
+    virtual DOM이 바뀐 부분을 찾아서 real DOM 에서 바꿈 
+## Babel, Webpack 
+    Babel : 구형브라우저에서도 최신 js 문법이 가동 가능하게 변환시켜줌 
+    Webpack : 많은 모듈들을 간단하게 만들어줌 - src 폴더만 관리함, 이미지 등을 넣는다. 
+
+## React 설치(npm vs. npx) 
+    - npx create-react-app . (현재 경로에 react를 설치하겠다)
+    - npm : node package manager (package.json)
+    - npx : npm 패키지를 1회성으로 실행? 좀 더 연구가 필요하다 
+## npm run start
+    - index.js 가 대장이다 
+    - index.js의 document.getElementById('root')는 index.html의 root를 가져온다
+## Boilerplate 구조 만들기 
+    - _actions, _reducer : redux를 위한 폴더 
+    - App.js : Routing 관련 일을 처리
+    - hoc (Higher Order Component)
+    - rfce -> react 코드 자동생성 --> es7 설치
+## React Router Dom 을 이용하여 router 기능 구현 
+    - https://reactrouter.com/web/example/basic
+    - npm install react-router-dom --save
+## Axios 
+    - Postman으로 했지만 이젠 frontend가 생겼으니 axios로 하자 
+    - npm install axios --save
+
+    --server : 5000
+      client : 3000
