@@ -29,15 +29,15 @@
 
     2. start the ssh-agent in the background
         eval "$(ssh-agent -s)"
-    '''bash
-    git remote add origin https://github.com/JungLaark/react-mongodb-boilerplate.git
-    git branch -M main
-    git push -u origin main
+```bash
+git remote add origin https://github.com/JungLaark/react-mongodb-boilerplate.git
+git branch -M main
+git push -u origin main
 
-    git add .
-    git commit -m "comment"
-    git push -u origin main
-    ```
+git add .
+git commit -m "comment"
+git push -u origin main
+```
 
 ## 회원가입 기능 만들기  
 ### body-parser : 데이터를 분석(parse)해서 req.body 로 출력해주는 것 
@@ -48,13 +48,13 @@
     1. body 탭
     2. raw 선택
     3. json 선택 
-    ```json
-    4. {
-        "name" : "Jung",
-        "email" : "che@naver.com",
-        "password" : "123345"
-         }
-    ```
+```json
+4. {
+    "name" : "Jung",
+    "email" : "che@naver.com",
+    "password" : "123345"
+        }
+```
          이거 넣어줌 
 
 ## node mon 다운로드 
@@ -93,7 +93,7 @@
 ### DB에 token을 지워준다 
 
 
-
+***
 # React JS 
 ## 이거슨 라이브러리다
 ## real DOM virtual DOM
@@ -124,3 +124,172 @@
 
     --server : 5000
       client : 3000
+
+## CORS 이슈 
+    - Cross-Origin Resources Sharing
+     : domain이 서로 다른 웹페이지와 서버 간의 통신 제어 
+     -> Proxy 사용 
+     -> https://create-react-app.dev/docs/proxying-api-requests-in-development
+     - npm install http-proxy-middleware --save (client에서)
+
+## Concurrently
+    - client, server 동시 실행 
+    - npm install concurrently --save
+    
+```json
+//in package.json
+
+"dev" : "concurrently \"npm run backend\" \"npm run start --prefix client\""
+```
+
+    -npm run dev
+
+    - [HPM] Error occurred while proxying request 오류 뜸 
+    --> index.js 파일을 못찾아서 "backend": "nodemon server/index.js", 으로 수정했음 
+
+## CSS framework
+    - Ant design 
+        - react 를 위한 프레임워크, client dependency에 설치 
+        - npm install antd --save
+        - client/src/index.js 에 아래 코드 추가 
+
+```javascript
+    import 'antd/dist/antd.css'
+```
+
+## Redux 
+    - Redux is predictable state container for Javascript apps.
+    - 상태 관리 라이브러리
+
+### Data Flow
+    React Component -> Dispatch -> Action -> Reducer -> Store -> Subscribe
+
+#### Action 
+    - 무엇이 일어났는지 설명하는 객체, 상태를 알려주는  
+#### Reducer
+    - 이전 state와 action object를 받은 후에 next state 를 return한다. 
+#### Store
+    - State를 저장, 및 관리 
+## Props vs. State
+### Props 
+    - 부모 컴포넌트에서 자식 컴포넌트로 데이터 전달 
+    - 전달받은 데이터는 immutable, 수정할 수 없다. 
+    - 부모 컴포넌트에서 수정을 해줘야 바뀔 수가 있다. 
+```javascript
+<자식ChatMessages
+messages={messages}
+currentMember={member}
+/>
+
+```
+### State
+    - 해당 컴포넌트에서 데이터를 전달할 때 사용 
+    - ex> 검색창에 키워드를 입력할 때 글이 변하는 것은 state로 바꿈 
+```javascript
+state = {
+    message: '',
+    attachFile: undefined,
+    openMenu: false
+}
+```
+## Redux 적용
+### Redux 설치 
+    - npm install redux react-redux redux-promise redux-thunk --save (client)
+    - promise 와 thunk 는 redux의 미들웨어
+
+### Redux 적용
+    - index.js 에 redux 관련 추가 
+    - _reducer/index.js 파일 추가 
+    - chrome에서 redux extension 추가 
+
+## React Component 
+### Class Component 
+```javascript
+import React, {Component} from 'react'
+
+export default class Hello extends Component{
+    render(){
+        return(
+            <div>
+                hello
+            </div>
+        )
+    }
+}
+```
+    - 더 많은 기능 
+    - 긴 코드
+
+### Functional Component 
+```javascript
+import React from 'react'
+
+export default function Hello(){
+    return(
+        <div>hello
+        </div>
+    )
+}
+```
+    - 한정된 기능 
+    - 짧아진 코드 
+    ***
+
+## React Hooks
+    - 16.8 버전 이후로 functional component 에서도 class component에서만 사용 할 수 있었던 것들을 할 수 있게 됨 
+    
+```javascript
+import React, {Component} from 'react'
+import Axios from 'axios'
+
+export default class Hello extends Component {
+    constructor(props){
+        super(props);
+        this.state = {name: ""};
+    }
+
+    componentDidMount(){//라이프사이클
+        Axios.get('/api/user/name')
+        .then(response => {
+            this.setState({name : response.data.name})
+        })
+    }
+
+    render(){
+        return(
+            <div>
+                My name is {this.state.name}
+            </div>
+        )
+    }
+}
+```
+    - constructor 실행
+    - render 실행 - dom에 알맞게 넣어줌 
+    - componentDidMount 실행 - data 가져옴 ->>>> 이건 useEffect로 대체 사용가능함 
+***
+```javascript
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios'
+
+export default function Hello(){
+    const [Name, setName] = useState("")
+
+    useEffect(() => {
+        Axios.get('/api/user/name')
+        .then(response => {
+            setName(response.data.name);
+        });
+    });
+
+    return (
+        <div>
+        My name is {Name}
+        </div>
+    )
+}
+```
+***
+
+## 화면 만들기 
+    -ctrl + p 빠른 이동 
